@@ -1,7 +1,11 @@
 <?php
 
 use App\Models\Tenant;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
+use Stancl\JobPipeline\JobPipeline;
+use Stancl\Tenancy\Events\DatabaseMigrated;
+use Stancl\Tenancy\Events\TenantCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/create', function () {
-//    $tenant = Tenant::create([
-//        'plan' => 'Monthly Pay As You Go'
-//    ]);
-
-    $tenant = Tenant::find('b198202a-f78f-4864-b6c8-705146fb5e41');
-
-    tenancy()->initialize($tenant);
-    \App\Jobs\InsertUserJob::dispatch();
+    Tenant::create([
+        'plan' => 'Monthly Pay As You Go'
+    ]);
 });
